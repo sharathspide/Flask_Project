@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background: #35424a;
+    color: #ffffff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+main {
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+}
+
+section {
+    margin-bottom: 1.5rem;
+}
+
+input {
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background: #35424a;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #272b2e;
+}
+
+#response {
+    margin-top: 1rem;
+    font-weight: bold;
+}
