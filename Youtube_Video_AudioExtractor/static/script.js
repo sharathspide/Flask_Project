@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const responseParagraph = document.getElementById('response');
 
     submitButton.addEventListener('click', function() {
+        debugger;
         const userInput = userInputField.value;
 
         fetch('/process', {
