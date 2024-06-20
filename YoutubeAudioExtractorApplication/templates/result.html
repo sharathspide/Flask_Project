@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Audio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Audio Extraction Complete</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Your audio file is ready</h2>
+            <a href="{{ url_for('download_file', filename=audio_file) }}">Download Audio</a>
+            <br>
+            <a href="{{ url_for('index') }}">Go Back</a>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Web Application</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Flask Web Application</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Enter Your Input</h2>
+            <input type="text" id="user-input" placeholder="Type something...">
+            <button id="submit-button">Submit</button>
+            <p id="response"></p>
+        </section>
+        <!-- <section class="youtube"> -->
+            <!-- <h2>Paste the Youtube Video Link</h2> -->
+            <!-- <div class="main_container"> -->
+                <!-- <div class="container"> -->
+                    <!-- <label for="link">Paste the Link</label> -->
+                    <!-- <input type="text" id="link" required="required" placeholder="Paste the link..."> -->
+                <!-- </div>   -->
+                <!-- <div class="container"> -->
+                    <!-- <label for="filename">Paste the Link</label> -->
+                    <!-- <input type="text" id="filename" placeholder="Enter the Custom filename..."> -->
+                <!-- </div> -->
+                <!-- <button id="sbt_button">Submit</button> -->
+            <!-- </div> -->
+            <!-- <p id="youTube_response"></p> -->
+        <!-- </section> -->
+        <!-- <section> -->
+            <!-- <h2>Enter Your Input</h2> -->
+            <!-- <input type="text" id="user-input" placeholder="Type something..."> -->
+            <!-- <button id="submit-button">Submit</button> -->
+            <!-- <p id="response"></p> -->
+            <!-- <a id="download-link" href="#" download="processed_audio.mp3" style="display:none;">Download Processed Audio</a> -->
+        <!-- </section> -->
+    </main>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
