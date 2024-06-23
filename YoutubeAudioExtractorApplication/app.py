@@ -1,10 +1,22 @@
 import os
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for, flash
 from pytube import YouTube
-from moviepy.editor import VideoFileClip
-
+from flask_mail import Mail, Message
+from authenticationdetails import password, userName, appSecret
 app = Flask(__name__)
-app.secret_key = 'spide4evr'  # Replace with your own secret key
+app.secret_key = appSecret
+
+# Configuration for Flask-Mail
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = userName
+app.config['MAIL_PASSWORD'] = password
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_DEFAULT_SENDER'] = userName
+
+mail = Mail(app)
 
 DOWNLOAD_VIDEO_FOLDER = 'YoutubeAudioExtractorApplication/VIDEO'
 DOWNLOAD_AUDIO_FOLDER = 'YoutubeAudioExtractorApplication/AUDIO'
@@ -42,31 +54,48 @@ def download_audio():
         videoFileName = video_stream.default_filename
         video_file_path = os.path.join(DOWNLOAD_VIDEO_FOLDER, videoFileName)
         video_stream.download(output_path=DOWNLOAD_VIDEO_FOLDER)
-
         audio_stream = yt.streams.filter(only_audio=True).first()
-        #audio_file_path = os.path.join(DOWNLOAD_AUDIO_FOLDER, "Audio" + '.mp3')
         audioFileName = "".join(["Audio", ".mp3"])
         audio_stream.download(output_path=DOWNLOAD_AUDIO_FOLDER, filename=audioFileName)
         audio_file_path = os.path.join(DOWNLOAD_AUDIO_FOLDER, audioFileName)
-        #video_clip = VideoFileClip(video_file_path)
-        #video_clip.audio.write_audiofile(audio_file_path)
-        #print(video_file_path)
-        # Removing the downloaded video file after extracting audio
-        #os.path.join(video_file_path).remove(videoFileName)
         delete_file(video_file_path)
         return render_template('result.html', audio_file=os.path.basename(audio_file_path))
+    
     except FileNotFoundError:
         return str(f"File '{videoFileName} or {audioFileName}' not found.")
+    
     except Exception as e:
         return str(e)
+    
+
 @app.route('/downloads/<filename>')
 def download_file(filename):
-    #return send_from_directory(os.path.join(DOWNLOAD_AUDIO_FOLDER), filename)
-    try:
-        return send_from_directory('E:\Flask_Project\Flask_Project\YoutubeAudioExtractorApplication\AUDIO', filename, as_attachment=True)
-        #return render_template('index.html')
+    try: 
+        return send_from_directory('..\YoutubeAudioExtractorApplication\AUDIO', filename, as_attachment=True)
     except Exception as e:
         return str(e)
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message = request.form['message']
+        
+        # Here you can add code to save the data to a database or send an email
+        try:
+            msg = Message("Contact Form Submission",recipients=[email])
+            msg.body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
+            mail.send(msg)
+            flash('Your message has been sent successfully!', 'success')
+        except Exception as e:
+            flash(f'An error occurred while sending your message: {str(e)}', 'danger')
+        
+        return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)
