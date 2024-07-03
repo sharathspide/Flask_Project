@@ -88,7 +88,7 @@ def submit():
         
         # Here you can add code to save the data to a database or send an email
         try:
-            msg = Message("Contact Form Submission",recipients=[email])
+            msg = Message("Contact Form Submission",recipients=[userName])
             msg.body = f"Name: {name}\nEmail: {email}\nMessage: {message}"
             mail.send(msg)
             flash('Your message has been sent successfully!', 'success')
